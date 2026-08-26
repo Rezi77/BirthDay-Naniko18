@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>გილოცავ დაბადების დღეს, ნანიკო! ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .animated-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: hidden; z-index: 1;
+    }
+
+    .floating-item {
+      position: absolute; bottom: -100px;
+      animation: floatUp 12s infinite ease-in-out;
+      opacity: 0.8; z-index: 1; user-select: none;
+    }
+
+    .balloon {
+      width: 45px; height: 58px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+    }
+    .balloon::after {
+      content: ""; position: absolute; bottom: -10px; left: 20px;
+      width: 2px; height: 12px; background: rgba(255, 255, 255, 0.7);
+    }
+
+    .flower-float { font-size: 1.8rem; }
+    .heart-float { font-size: 1.6rem; }
+
+    .item-1 { left: 5%; background: #ff4b72; animation-duration: 10s; animation-delay: 0s; }
+    .item-2 { left: 18%; animation-duration: 14s; animation-delay: 2s; }
+    .item-3 { left: 32%; background: #ffd700; animation-duration: 11s; animation-delay: 4s; }
+    .item-4 { left: 48%; animation-duration: 13s; animation-delay: 1s; }
+    .item-5 { left: 65%; background: #ff85a2; animation-duration: 12s; animation-delay: 3s; }
+    .item-6 { left: 80%; animation-duration: 15s; animation-delay: 5s; }
+    .item-7 { left: 92%; animation-duration: 9s; animation-delay: 2s; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      50% { transform: translateY(-60vh) rotate(15deg); }
+      100% { transform: translateY(-115vh) rotate(-10deg); opacity: 0.2; }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 16px 12px;
+      border-radius: 28px;
+      box-shadow: 0 15px 35px rgba(220, 80, 120, 0.35);
+      text-align: center;
+      max-width: 520px; width: 94%;
+      max-height: 94vh;
+      position: relative; z-index: 10;
+      border: 4px double #ff758c;
+      outline: 2px dashed #ff85a2;
+      outline-offset: -8px;
+      display: flex; flex-direction: column;
+      justify-content: space-between; align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .vine-corner {
+      position: absolute; width: 45px; height: 45px; z-index: 12; pointer-events: none;
+    }
+    .top-left { top: 4px; left: 4px; }
+    .top-right { top: 4px; right: 4px; transform: scaleX(-1); }
+    .bottom-left { bottom: 4px; left: 4px; transform: scaleY(-1); }
+    .bottom-right { bottom: 4px; right: 4px; transform: scale(-1); }
+
+    .page { display: none; width: 100%; animation: fadeIn 0.4s ease-in-out; }
+    .page.active { display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      color: #ff4b72; font-size: 1.5rem; margin-bottom: 8px;
+      line-height: 1.2; text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    .barbie-title {
+      color: #e83e8c; font-size: 1.35rem; font-weight: bold; margin-bottom: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+    }
+
+    #catch-btn {
+      background: linear-gradient(45deg, #ff4b72, #ff758c);
+      color: white; border: none; padding: 12px 28px;
+      font-size: 1.1rem; font-weight: bold; border-radius: 50px;
+      cursor: pointer; box-shadow: 0 6px 16px rgba(255, 75, 114, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative; outline: none; margin-top: 15px;
+    }
+
+    .heart-btn-wrapper { margin-top: 4px; }
+    .heart-btn {
+      background: transparent; border: none; font-size: 2.2rem;
+      cursor: pointer; animation: pulse 1.2s infinite alternate; outline: none;
+      transition: transform 0.2s; line-height: 1;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(255, 75, 114, 0.5)); }
+      100% { transform: scale(1.18); filter: drop-shadow(0 0 12px rgba(255, 75, 114, 0.9)); }
+    }
+
+    .gallery {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px; margin: 6px 0; width: 100%;
+      max-height: 52vh; overflow-y: auto; padding: 4px;
+    }
+
+    .media-card {
+      display: flex; justify-content: center; align-items: center;
+      width: 100%; position: relative;
+    }
+
+    .media-card img, .media-card video { 
+      width: 100%; 
+      height: auto; 
+      object-fit: contain; 
+      border-radius: 14px;
+      border: 2px solid #ff758c;
+      box-shadow: 0 4px 12px rgba(255, 75, 114, 0.25);
+      outline: 2px dashed #e83e8c; outline-offset: 3px;
+    }
+
+    .handwritten-box {
+      background: #fff0f3; padding: 16px 12px; border-radius: 16px;
+      color: #c2185b; font-size: 1.2rem; line-height: 1.5; text-align: center;
+      border: 2px dashed #ff85a2; box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+      width: 100%; font-family: 'Dancing Script', 'Georgia', cursive; font-weight: 700;
+    }
+
+    .vine-divider {
+      width: 75%; height: 14px; margin: 4px auto;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" fill="none" stroke="%23ff758c" stroke-width="2"><path d="M0,10 Q25,0 50,10 T100,10"/><circle cx="25" cy="5" r="2" fill="%23e83e8c"/><circle cx="75" cy="15" r="2" fill="%23e83e8c"/><path d="M45,10 Q50,2 55,10 Q50,18 45,10" fill="%23ff4b72"/></svg>');
+      background-repeat: repeat-x; background-size: 50px 14px; opacity: 0.85;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 12px 8px; }
+      h1 { font-size: 1.35rem; }
+      .barbie-title { font-size: 1.2rem; }
+      .gallery { max-height: 48vh; }
+      .handwritten-box { font-size: 1.1rem; padding: 12px 8px; }
+      .heart-btn { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="milan.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="animated-bg">
+    <div class="floating-item balloon item-1"></div>
+    <div class="floating-item flower-float item-2">🌸</div>
+    <div class="floating-item balloon item-3"></div>
+    <div class="floating-item heart-float item-4">💖</div>
+    <div class="floating-item balloon item-5"></div>
+    <div class="floating-item flower-float item-6">🌺</div>
+    <div class="floating-item heart-float item-7">💕</div>
+  </div>
+
+  <div class="card">
+    <svg class="vine-corner top-left" viewBox="0 0 100 100" fill="none" stroke="#ff4b72" stroke-width="3">
+      <path d="M5,5 Q50,5 50,50 T95,50" />
+      <path d="M5,5 Q5,50 50,50" stroke="#e83e8c" stroke-width="2"/>
+      <circle cx="20" cy="20" r="4" fill="#ff758c"/>
+    </svg>
+    <svg class="vine-corner top-right" viewBox="0 0 100 100" fill="none" stroke="#ff4b72" stroke-width="3">
+      <path d="M5,5 Q50,5 50,50 T95,50" />
+      <path d="M5,5 Q5,50 50,50" stroke="#e83e8c" stroke-width="2"/>
+      <circle cx="20" cy="20" r="4" fill="#ff758c"/>
+    </svg>
+
+    <div id="page1" class="page active">
+      <h1>🍇 🌸 გილოცავ ნანიკო დაბადების დღეს! 🌸 🍇</h1>
+      <div class="vine-divider"></div>
+      <button id="catch-btn" onclick="handleCatch()">დააჭირე ✨</button>
+    </div>
+
+    <div id="page2" class="page">
+      <div class="barbie-title">
+        👑 🌿 🌸 გილოცავ პრინცესა 🌸 🌿 👸🏼✨
+      </div>
+      
+      <div class="gallery" id="gallery-container">
+        <div class="media-card"><img src="photo 1.jpg" alt="ნანიკო"></div>
+        
+        <div class="media-card">
+          <video class="scroll-video" muted loop playsinline>
+            <source src="video 1.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="media-card"><img src="photo 2.jpg" alt="ნანიკო"></div>
+        
+        <div class="media-card">
+          <video class="scroll-video" muted loop playsinline>
+            <source src="video 2.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="media-card"><img src="photo 3.jpg" alt="ნანიკო"></div>
+        
+        <div class="media-card">
+          <video class="scroll-video" muted loop playsinline>
+            <source src="video 3.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="media-card"><img src="photo 4.jpg" alt="ნანიკო"></div>
+        
+        <div class="media-card">
+          <video class="scroll-video" muted loop playsinline>
+            <source src="video 4.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="vine-divider"></div>
+
+      <div class="heart-btn-wrapper">
+        <p style="color: #888; font-size: 0.8rem; margin-bottom: 2px;">გადადი წერილზე 👇</p>
+        <button class="heart-btn" onclick="goToPage('page3')">💖</button>
+      </div>
+    </div>
+
+    <div id="page3" class="page">
+      <h1 style="font-size: 1.6rem; font-family: 'Dancing Script', cursive;">🌿 🌸 ჩემო ნანიკო 💌 🌿</h1>
+      <div class="handwritten-box">
+        <span>✨</span>ნანიკო, გილოცავ! ძაან მიხარია, რომ გაგიცანი. ხშირად გეუბნები, რომ ძაან საყვარელი და ლამაზი ხარ. მართლა ეგრეა, არავინ მინახავს შენნაირი. ყველაფერი კარგი მინდა შენთვის, ყველაფერს საუკეთესოს გისურვებ და, რაც მთავარია, ჯანმრთელობას, ნანიკო. 🌸❤️
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let clickCount = 0;
+    let musicStarted = false;
+
+    // ღილაკის ტექსტების მიმდევრობა
+    const buttonTexts = [
+      "აბა კიდე ცადე 😜",
+      "რავი დააჭერ? 😛",
+      "მიდი ნანიკო 🏃‍♀️",
+      "ჰეე გოგო 💥",
+      "კარგი ჰო 😜"
+    ];
+
+    function handleCatch() {
+      const audio = document.getElementById('bg-music');
+      
+      if (!musicStarted) {
+        audio.play().then(() => {
+          musicStarted = true;
+        }).catch(e => {
+          console.log("Audio play deferred", e);
+        });
+      }
+
+      const btn = document.getElementById('catch-btn');
+
+      if (clickCount < buttonTexts.length) {
+        btn.innerText = buttonTexts[clickCount];
+        
+        const randomX = (Math.random() - 0.5) * 180;
+        const randomY = (Math.random() - 0.5) * 120;
+        btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        
+        clickCount++;
+      } else {
+        goToPage('page2');
+      }
+    }
+
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+
+      if (pageId === 'page2') {
+        initScrollVideos();
+      }
+    }
+
+    function initScrollVideos() {
+      const container = document.getElementById('gallery-container');
+      const videos = container.querySelectorAll('.scroll-video');
+
+      function checkVideos() {
+        const containerRect = container.getBoundingClientRect();
+
+        videos.forEach(video => {
+          const rect = video.getBoundingClientRect();
+
+          const isVisible = (
+            rect.top < containerRect.bottom - 50 &&
+            rect.bottom > containerRect.top + 50
+          );
+
+          if (isVisible) {
+            if (video.paused) {
+              video.play().catch(e => console.log("Play error:", e));
+            }
+          } else {
+            if (!video.paused) {
+              video.pause();
+            }
+          }
+        });
+      }
+
+      setTimeout(checkVideos, 200);
+
+      container.removeEventListener('scroll', checkVideos);
+      container.addEventListener('scroll', checkVideos);
+    }
+  </script>
+</body>
+</html>
