@@ -111,15 +111,14 @@
       position: absolute;
       pointer-events: none;
       z-index: 100;
-      animation: explode 1.2s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+      animation: explode 0.8s ease-out forwards;
       will-change: transform, opacity;
       image-rendering: -webkit-optimize-contrast;
     }
 
     @keyframes explode {
       0% { opacity: 1; transform: translate(0, 0) scale(0.5) rotate(0deg); }
-      70% { opacity: 0.9; }
-      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.6) rotate(var(--rot)); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot)); }
     }
 
     .card {
@@ -151,7 +150,7 @@
     .page {
       display: none; width: 100%; opacity: 0;
       transform: scale(0.92) translateY(15px);
-      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: opacity 0.3s ease, transform 0.3s ease;
       will-change: transform, opacity;
     }
 
@@ -193,24 +192,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      pointer-events: none;
     }
 
     #catch-btn {
-      pointer-events: auto;
       background: linear-gradient(135deg, rgba(255, 75, 114, 0.85), rgba(255, 117, 140, 0.85));
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       color: white; border: 1px solid rgba(255, 255, 255, 0.4); padding: 12px 28px;
       font-size: 1.1rem; font-weight: bold; border-radius: 50px;
       cursor: pointer; box-shadow: 0 8px 20px rgba(255, 75, 114, 0.4);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       outline: none; 
       display: inline-flex; align-items: center; gap: 8px;
       touch-action: manipulation;
       white-space: nowrap;
-      will-change: transform;
       text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      position: relative;
+      /* ანიმაციის დრო შემცირდა 0.1 წამამდე სწრაფი რეაგირებისთვის */
+      transition: transform 0.1s ease-out;
+      will-change: transform;
     }
 
     .letter-hint-text {
@@ -293,7 +292,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* გავზარდეთ სიმაღლე 280px-მდე, რომ მედია ბევრად სრულად და დიდზე გამოჩნდეს */
     .media-card {
       display: flex; flex-direction: column; justify-content: center; align-items: center;
       width: 100%; height: 280px; position: relative; overflow: hidden; 
@@ -399,7 +397,7 @@
       .card { padding: 12px 8px; }
       h1 { font-size: 1.3rem; }
       .barbie-title { font-size: 1.4rem; }
-      .media-card { height: 240px; } /* მობილურისთვისაც მნიშვნელოვნად გაზრდილი ზომა */
+      .media-card { height: 240px; }
       .handwritten-box { font-size: 1.25rem; line-height: 32px; padding: 16px 12px; }
       .romantic-letter-title { font-size: 1.35rem; }
       .letter-hint-text { font-size: 1.1rem; }
@@ -472,7 +470,7 @@
       <div class="gallery-container-wrapper">
         <div class="gallery" id="gallery-container">
           <div class="media-card">
-            <svg class="sparkle-icon" viewBox="0 0 30 30"><path d="M15 0L18.5 11.5L30 15L18.5 18.5L15 30L11.5 18.5L0 15L11.5 11.5L15 0Z" fill="#FFD700"/></svg>
+            <svg class="sparkle-icon" viewBox="0 0 30 30"><path d="M15 0L18.5 11.5L30 15L18.5 18.5L15 30L11.5 11.5L15 0Z" fill="#FFD700"/></svg>
             <img src="photo 1.jpg" alt="ნანიკო" loading="lazy">
           </div>
           <div class="media-card">
@@ -480,7 +478,7 @@
             <video class="scroll-video" muted loop playsinline preload="metadata"><source src="video 1.mp4" type="video/mp4"></video>
           </div>
           <div class="media-card">
-            <svg class="sparkle-icon" viewBox="0 0 30 30"><path d="M15 0L18.5 11.5L30 15L18.5 18.5L15 30L11.5 18.5L0 15L11.5 11.5L15 0Z" fill="#FFD700"/></svg>
+            <svg class="sparkle-icon" viewBox="0 0 30 30"><path d="M15 0L18.5 11.5L30 15L18.5 18.5L15 30L11.5 11.5L15 0Z" fill="#FFD700"/></svg>
             <img src="photo 2.jpg" alt="ნანიკო" loading="lazy">
           </div>
           <div class="media-card">
@@ -520,7 +518,7 @@
     <div id="page3" class="page">
       <div class="title-wrapper">
         <svg class="title-icon" viewBox="0 0 32 32"><path d="M4 6H28V26H4V6Z" fill="#FF758C" stroke="#FF4B72" stroke-width="2"/><path d="M4 6L16 16L28 6" stroke="#FFFFFF" stroke-width="2"/></svg>
-        <h1 class="romantic-letter-title">ჩემო ნანიკო ❤️</h1>
+        <h1 class="romantic-letter-title">ყველაზე ლამაზ გოგოს </h1>
         <svg class="title-icon" viewBox="0 0 32 32"><path d="M16 28S2 18 2 10A8 8 0 0 1 16 6A8 8 0 0 1 30 10C30 18 16 28 16 28Z" fill="#FF4B72"/></svg>
       </div>
 
@@ -540,9 +538,10 @@
     let titleTypingTimeout = null;
     let letterTypingTimeout = null;
     let videoObserver = null;
+    let isAnimating = false; // ბლოკირების ცვლადი
 
     const fullTitleText = "გილოცავ პრინცესა";
-    const fullLetterText = "ნანიკო, გილოცავ! ძაან მიხარია, რომ გაგიცანი. ხშირად გეუბნები, რომ ძაან საყვარელი და ლამაზი ხარ. მართლა ეგრეა, არავინ მინახავს შენნაირი. ყველაფერი კარგი მინდა შენთვის, ყველაფერს საუკეთესოს გისურვებ და, რაც მთავარია, ჯანმრთელობას, ნანიკო. ❤️";
+    const fullLetterText = "ნანიკო, გილოცავ! ძაან მიხარია, რომ გაგიცანი. ხშირად გეუბნები, რომ ძაან საყვარელი და ლამაზი ხარ. მართლა ეგრეა, არავინ მინახავს შენნაირი. თვალებს ვერ ვუჯერებ ზოგჯერ იმდენად მიყვარს შენი მიმიკები, რო იმორცხვები ხოლმე,შენი თვალები,შენი ხმაა სასწაული ხმა გაქ ნაზი და თბილი,მაგიტო მომწონს შენთან ლაპარალი რო ეგ ხმა მეტხანს ვისმინო ხოლმე,სასწაული მყავხარ, ყველაფერი კარგი მინდა შენთვის, ყველაფერს საუკეთესოს გისურვებ და, რაც მთავარია, ჯანმრთელობას, ნანიკო და რაც ჩანაფიქრები  გაქ ყველა მათგანის ასრულებას პრინცესა. ❤️";
 
     const buttonTexts = [
       "აბა კიდე ცადე 😜",
@@ -554,17 +553,17 @@
     ];
 
     const jumpPositions = [
-      { x: -110, y: -130 },
-      { x: 120, y: 140 },
-      { x: -120, y: 120 },
-      { x: 110, y: -140 },
-      { x: 0, y: -160 },
-      { x: 0, y: 150 }
+      { x: -90, y: -100 },
+      { x: 90, y: 100 },
+      { x: -90, y: 90 },
+      { x: 90, y: -100 },
+      { x: 0, y: -120 },
+      { x: 0, y: 110 }
     ];
 
     function createExplosion(x, y) {
       const symbols = ['❤️', '🎈', '💖', '✨', '🌸', '💕', '⭐', '🌺', '👑', '🥳', '🌹'];
-      const particleCount = 25; 
+      const particleCount = 15; // შემცირდა ოპტიმიზაციისთვის
       const fragment = document.createDocumentFragment();
 
       for (let i = 0; i < particleCount; i++) {
@@ -573,17 +572,17 @@
         p.innerText = symbols[Math.floor(Math.random() * symbols.length)];
         
         const angle = Math.random() * Math.PI * 2;
-        const distance = 120 + Math.random() * 220; 
+        const distance = 80 + Math.random() * 140; 
         const tx = Math.cos(angle) * distance + 'px';
         const ty = Math.sin(angle) * distance + 'px';
-        const rot = (Math.random() - 0.5) * 720 + 'deg';
+        const rot = (Math.random() - 0.5) * 360 + 'deg';
 
         p.style.setProperty('--tx', tx);
         p.style.setProperty('--ty', ty);
         p.style.setProperty('--rot', rot);
         p.style.left = x + 'px';
         p.style.top = y + 'px';
-        p.style.fontSize = (18 + Math.random() * 16) + 'px';
+        p.style.fontSize = (16 + Math.random() * 14) + 'px';
 
         fragment.appendChild(p);
       }
@@ -593,7 +592,7 @@
       setTimeout(() => {
         const particles = document.querySelectorAll('.particle');
         particles.forEach(p => p.remove());
-      }, 1200);
+      }, 800);
     }
 
     function triggerHeartBurst(event) {
@@ -601,6 +600,10 @@
     }
 
     function handleCatch(event) {
+      // თუ ანიმაცია მიმდინარეობს, იგნორირება უკეთდება სწრაფ დაჭერებს
+      if (isAnimating) return;
+      isAnimating = true;
+
       createExplosion(event.clientX, event.clientY);
       const audio = document.getElementById('bg-music');
       
@@ -611,13 +614,18 @@
       const btn = document.getElementById('catch-btn');
 
       if (clickCount < buttonTexts.length) {
-        btn.innerHTML = `<span>${buttonTexts[clickCount]}</span>`;
-        
+        btn.querySelector('span').textContent = buttonTexts[clickCount];
         const pos = jumpPositions[clickCount % jumpPositions.length];
-        btn.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-        
+        btn.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
         clickCount++;
+
+        // 110ms-ის შემდეგ ისევ ეხსნება ბლოკი (რადგან CSS transition არის 100ms)
+        setTimeout(() => {
+          isAnimating = false;
+        }, 110);
+
       } else {
+        isAnimating = false;
         goToPage('page2');
       }
     }
@@ -633,7 +641,7 @@
         if (i < text.length) {
           el.textContent += text.charAt(i);
           i++;
-          const randomSpeed = speed + (Math.random() * 25 - 10);
+          const randomSpeed = speed + (Math.random() * 20 - 10);
 
           if (elementId === 'typed-title') {
             titleTypingTimeout = setTimeout(type, randomSpeed);
@@ -669,12 +677,12 @@
           if (pageId === 'page2') {
             initScrollVideos();
             clearTimeout(titleTypingTimeout);
-            typeText("typed-title", fullTitleText, 90);
+            typeText("typed-title", fullTitleText, 80);
           } else if (pageId === 'page3') {
             clearTimeout(letterTypingTimeout);
-            typeText("typed-letter", fullLetterText, 50);
+            typeText("typed-letter", fullLetterText, 45);
           }
-        }, 350);
+        }, 300);
       }
     }
 
